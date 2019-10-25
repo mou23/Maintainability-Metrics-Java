@@ -1,0 +1,37 @@
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\AuthenticationException.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\AuthHandler.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\Connection.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\ConnectionListener.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\Consumer.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\Dispatcher.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\ErrorListener.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\DataPort.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\FileAuthHandler.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\MessageQueue.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\NatsConnection.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\NatsConnectionReader.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\NatsConnectionWriter.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\NatsConsumer.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\NatsDispatcher.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\NatsImpl.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\NatsMessage.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\NatsServerInfo.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\NatsStatistics.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\NatsSubscription.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\SocketDataPort.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\SSLUtils.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\impl\StringAuthHandler.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\Message.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\MessageHandler.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\Nats.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\NKey.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\NUID.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\Options.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\package-info.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\Statistics.java
+Processing D:\workspace\Maintainability Metrics\dataset\new\nats.java-master\src\main\java\io\nats\client\Subscription.java
+
+
+Too long files: 48.335777953288954%
+Too long methods: 9.308360600248223%
+Nesting depth: 7.096919778855918%

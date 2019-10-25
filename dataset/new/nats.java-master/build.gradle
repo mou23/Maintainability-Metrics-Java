@@ -1,0 +1,280 @@
+
+plugins {
+    id 'java-library'
+    id 'java'
+    id 'jacoco'
+    id 'maven'
+    id 'maven-publish'
+    id 'signing'
+    id 'com.github.kt3k.coveralls' version '2.8.4'
+    id 'osgi'
+    id 'io.codearte.nexus-staging' version '0.21.0'
+    id "de.marcphilipp.nexus-publish" version "0.3.0"
+}
+
+// Update version here, repeated check-ins not into master will have snapshot on them
+// Be sure to update Nats.java with the latest version, the change log and the package-info.java
+def versionMajor = 2
+def versionMinor = 6
+def versionPatch = 5
+def versionModifier = ""
+def jarVersion = "2.6.5"
+def branch = System.getenv("TRAVIS_BRANCH");
+def tag = System.getenv("TRAVIS_TAG");
+def useSigning = "master".equals(branch) || (!"".equals(tag) && tag.equals(branch)) // tag will be the branch on a tag event for travis
+
+def getVersionName = { ->
+    if ("".equals(tag))  {
+        versionModifier = "-SNAPSHOT"
+    }
+
+    if (versionModifier != null && versionModifier.length() > 0) {
+        return "" + versionMajor + "." + versionMinor + "." + versionPatch + versionModifier
+    } else {
+        return "" + versionMajor + "." + versionMinor + "." + versionPatch
+    }
+}
+
+version = getVersionName()
+archivesBaseName = 'jnats'
+group = 'io.nats'
+
+// Get signing properties set up from outside (env var can't handle the dot)
+if (System.getenv('SONATYPE_USERNAME') != null) {
+    project.ext['ossrhUsername'] = System.getenv('SONATYPE_USERNAME')
+    project.ext['ossrhPassword'] = System.getenv('SONATYPE_PASSWORD')
+    project.ext['signing.secretKeyRingFile'] = System.getenv('GPG_KEYRING_FILE')
+    project.ext['signing.keyId'] = System.getenv('GPG_KEY_ID')
+    project.ext['signing.password'] =  System.getenv('GPG_KEY_PASSPHRASE')
+}
+
+// If these aren't set, just set them to empty so we don't have issues getting them
+if (!project.hasProperty('ossrhUsername')) {
+    project.ext['ossrhUsername'] = ""
+    project.ext['ossrhPassword'] = ""
+}
+
+tasks {
+    closeRepository {
+        onlyIf { nexusPublishing.useStaging.get() }
+    }
+    releaseRepository{
+        onlyIf { nexusPublishing.useStaging.get() }
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'net.i2p.crypto:eddsa:0.3.0'
+    testImplementation 'junit:junit:4.12'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java','src/examples/java']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+    }
+}
+
+osgiClasses {
+    exclude("io/nats/examples/**")
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': 'Java Nats',
+                   'Implementation-Version': jarVersion,
+                   'Implementation-Vendor': 'nats.io')
+        instruction "Import-Package", "!net.i2p.crypto.eddsa.math"
+        instruction "Import-Package", "net.i2p*"
+        instruction "Import-Package", "io.nats*"
+    }
+    exclude("io/nats/examples/**")
+}
+
+test {
+    maxHeapSize = "2g"
+    if (org.gradle.internal.os.OperatingSystem.current().isLinux()) {
+        jvmArgs '-Djava.security.egd=file:/dev/./urandom'
+    }
+    testLogging {
+        exceptionFormat = 'full'
+        events "started", "passed", "skipped", "failed"
+    }
+}
+
+javadoc {
+    options.overview = 'src/main/javadoc/overview.html' // relative to source root
+    source = sourceSets.main.allJava
+    title = "NATS.IO Java API"
+    excludes = ['io/nats/client/impl', 'io/nats/examples']
+    classpath = sourceSets.main.runtimeClasspath
+    doLast {
+            exec {
+                println "Updating favicon on all html files"
+                workingDir 'build/docs/javadoc'
+                // Only on linux, mac at this point
+                commandLine 'find', '.', '-name', '*.html', '-exec', 'sed', '-i', '-e', 's#<head>#<head><link rel="icon" type="image/ico" href="favicon.ico">#', '{}', ';'
+            }
+            copy {
+                println "Copying images to javadoc folder"
+                from 'src/main/javadoc/images'
+                into 'build/docs/javadoc'
+            }
+        }
+}
+
+task examplesJar(type: Jar) {
+    classifier = 'examples'
+    manifest {
+        attributes('Implementation-Title': 'Java Nats Examples',
+                   'Implementation-Version': jarVersion,
+                   'Implementation-Vendor': 'nats.io')
+    }
+    from(sourceSets.main.output) {
+        include "io/nats/examples/**"
+    }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+// run build before running fat jar to get classes
+task fatJar(type: Jar) {
+    classifier = 'fat'
+    manifest {
+        attributes('Implementation-Title': 'Java Nats With Dependencies',
+                   'Implementation-Version': jarVersion,
+                   'Implementation-Vendor': 'nats.io')
+    }
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
+    afterEvaluate { // only report on main library not examples
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['**/examples**'])
+        })
+    }
+}
+
+artifacts {
+    archives javadocJar, sourcesJar, examplesJar
+}
+
+if (useSigning) {
+    signing {
+        sign configurations.archives
+    }
+}
+
+nexusStaging {
+    packageGroup = group
+    username = project.getProperty('ossrhUsername')
+    password = project.getProperty('ossrhPassword')
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact examplesJar
+            artifact javadocJar
+            pom {
+                name = 'jnats'
+                packaging = 'jar'
+                groupId = group
+                artifactId = archivesBaseName
+                description = 'Client library for working with the NATS messaging system.'
+                url = 'https://github.com/nats-io/nats.java'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = "synadia"
+                        name = "Synadia"
+                        email = "info@synadia.com"
+                        url = "https://nats.io"
+                    }
+                }
+                scm {
+                    url = 'https://github.com/nats-io/nats.java'
+                }
+            }
+
+            pom.withXml {
+                def pomFile = file("${project.buildDir}/generated-pom.xml")
+                writeTo(pomFile)
+
+                if (useSigning) {
+                    def pomAscFile = signing.sign(pomFile).signatureFiles[0]
+                    artifact(pomAscFile) {
+                        classifier = null
+                        extension = 'pom.asc'
+                    }
+                }
+            }
+
+            // create the signed artifacts
+            if (useSigning) {
+                project.tasks.signArchives.signatureFiles.each {
+                    artifact(it) {
+                        def matcher = it.file =~ /-(sources|javadoc|examples)\.jar\.asc$/
+                        if (matcher.find()) {
+                            classifier = matcher.group(1)
+                        } else {
+                            classifier = null
+                        }
+                        extension = 'jar.asc'
+                    }
+                }
+            }
+        }
+    }
+
+    nexusPublishing {
+        repositories {
+            sonatype {
+                username = project.getProperty('ossrhUsername')
+                password = project.getProperty('ossrhPassword')
+            }
+        }
+    }
+
+    model {
+        tasks.generatePomFileForMavenJavaPublication {
+            destination = file("$buildDir/generated-pom.xml")
+        }
+        
+        tasks.publishMavenJavaPublicationToSonatypeRepository {
+            dependsOn project.tasks.signArchives
+        }
+    }
+}
