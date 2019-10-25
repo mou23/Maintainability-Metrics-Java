@@ -1,5 +1,0 @@
-  Language  Files   Code  Comment  Blank  Total
-     Total    138  11274     2087   2413  15727
-      Java    113   9131     2067   2080  13231
-       XML     21   1427       20    159   1606
-  Markdown      4    716        0    174    890
