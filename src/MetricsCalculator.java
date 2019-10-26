@@ -26,6 +26,8 @@ public class MetricsCalculator {
 	static double longFileLOC = 0;
 	static double deepMethodLOC = 0;
 	static double longMethodLOC = 0;
+	static double total_c_coeff = 0;
+	static double bad_c_coeff = 0;
 	static CompilationUnit compilationUnit;
 
 	void calculateMetrics(File file) {
@@ -37,6 +39,7 @@ public class MetricsCalculator {
 		System.out.println("Too long files: "+ (longFileLOC*100/totalLOC) + "%");
 		System.out.println("Too long methods: "+ (longMethodLOC*100/totalLOC)+ "%");
 		System.out.println("Nesting depth: "+ (deepMethodLOC*100/totalLOC)+ "%");
+		System.out.println("Bad comment: "+(bad_c_coeff*100/total_c_coeff)+ "%");
 	}
 	
 	void fileLOCCalculator(File file) {

@@ -3,7 +3,7 @@ import java.io.File;
 public class MyMain {
 	
 	public static void main(String[] args) {
-		File rootFolder = new File("dataset/new/nats.java-master");
+		File rootFolder = new File("dataset/jslack-master");
 		File[] listOfFiles = rootFolder.listFiles();
 
 		try {
