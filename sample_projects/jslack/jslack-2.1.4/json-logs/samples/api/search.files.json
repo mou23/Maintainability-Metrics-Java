@@ -1,0 +1,114 @@
+{
+  "ok": false,
+  "query": "",
+  "files": {
+    "total": 12345,
+    "pagination": {
+      "total_count": 12345,
+      "page": 12345,
+      "per_page": 12345,
+      "page_count": 12345,
+      "first": 12345,
+      "last": 12345
+    },
+    "paging": {
+      "count": 12345,
+      "total": 12345,
+      "page": 12345,
+      "pages": 12345
+    },
+    "matches": [
+      {
+        "id": "F00000000",
+        "created": 12345,
+        "timestamp": 12345,
+        "name": "",
+        "title": "",
+        "mimetype": "",
+        "filetype": "",
+        "pretty_type": "",
+        "user": "U00000000",
+        "editable": false,
+        "size": 12345,
+        "mode": "",
+        "is_external": false,
+        "external_type": "",
+        "is_public": false,
+        "public_url_shared": false,
+        "display_as_bot": false,
+        "username": "",
+        "url_private": "https://www.example.com/",
+        "thumb_64": "https://www.example.com/",
+        "thumb_80": "https://www.example.com/",
+        "thumb_360": "https://www.example.com/",
+        "thumb_360_w": 12345,
+        "thumb_360_h": 12345,
+        "thumb_480": "https://www.example.com/",
+        "thumb_480_w": 12345,
+        "thumb_480_h": 12345,
+        "thumb_160": "https://www.example.com/",
+        "thumb_720": "https://www.example.com/",
+        "thumb_720_w": 12345,
+        "thumb_720_h": 12345,
+        "thumb_800": "https://www.example.com/",
+        "thumb_800_w": 12345,
+        "thumb_800_h": 12345,
+        "thumb_960": "https://www.example.com/",
+        "thumb_960_w": 12345,
+        "thumb_960_h": 12345,
+        "thumb_1024": "https://www.example.com/",
+        "thumb_1024_w": 12345,
+        "thumb_1024_h": 12345,
+        "image_exif_rotation": 12345,
+        "original_w": 12345,
+        "original_h": 12345,
+        "permalink": "https://www.example.com/",
+        "is_starred": false,
+        "shares": {
+          "public": {
+            "C00000000": [
+              {
+                "reply_users": [
+                  ""
+                ],
+                "reply_users_count": 12345,
+                "reply_count": 12345,
+                "ts": "0000000000.000000",
+                "channel_name": "",
+                "team_id": "T00000000"
+              }
+            ],
+            "C00000001": [
+              {
+                "reply_users": [
+                  ""
+                ],
+                "reply_users_count": 12345,
+                "reply_count": 12345,
+                "ts": "0000000000.000000",
+                "channel_name": "",
+                "team_id": "T00000000"
+              }
+            ]
+          }
+        },
+        "channels": [
+          "C00000000"
+        ],
+        "groups": [
+          ""
+        ],
+        "ims": [
+          ""
+        ],
+        "external_id": "",
+        "external_url": "https://www.example.com/",
+        "has_rich_preview": false,
+        "preview": ""
+      }
+    ]
+  },
+  "error": "",
+  "needed": "",
+  "provided": ""
+}

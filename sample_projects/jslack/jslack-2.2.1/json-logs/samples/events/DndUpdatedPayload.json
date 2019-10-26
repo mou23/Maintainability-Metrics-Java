@@ -1,0 +1,26 @@
+{
+  "token": "",
+  "enterprise_id": "",
+  "team_id": "",
+  "api_app_id": "",
+  "type": "",
+  "authed_users": [
+    ""
+  ],
+  "authed_teams": [
+    ""
+  ],
+  "event_id": "",
+  "event_time": 123,
+  "event": {
+    "type": "dnd_updated",
+    "user": "",
+    "dnd_status": {
+      "dnd_enabled": false,
+      "next_dnd_start_ts": 123,
+      "next_dnd_end_ts": 123,
+      "snooze_enabled": false,
+      "snooze_endtime": 123
+    }
+  }
+}

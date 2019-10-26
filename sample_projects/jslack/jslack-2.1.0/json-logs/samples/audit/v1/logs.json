@@ -1,0 +1,44 @@
+{
+  "entries": [
+    {
+      "id": "",
+      "date_create": 12345,
+      "action": "",
+      "actor": {
+        "type": "",
+        "user": {
+          "id": "W00000000",
+          "name": "",
+          "email": "",
+          "team": "E00000000"
+        }
+      },
+      "entity": {
+        "type": "",
+        "user": {
+          "id": "W00000000",
+          "name": "",
+          "email": "",
+          "team": "E00000000"
+        }
+      },
+      "context": {
+        "location": {
+          "type": "",
+          "id": "T00000000",
+          "name": "",
+          "domain": ""
+        },
+        "ua": "",
+        "ip_address": ""
+      }
+    }
+  ],
+  "response_metadata": {
+    "next_cursor": ""
+  },
+  "ok": false,
+  "error": "",
+  "needed": "",
+  "provided": ""
+}

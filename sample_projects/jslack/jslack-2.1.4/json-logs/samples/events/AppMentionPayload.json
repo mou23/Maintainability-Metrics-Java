@@ -1,0 +1,21 @@
+{
+  "token": "",
+  "team_id": "",
+  "api_app_id": "",
+  "event": {
+    "type": "app_mention",
+    "user": "",
+    "subtype": "",
+    "text": "",
+    "ts": "",
+    "channel": "",
+    "event_ts": "",
+    "thread_ts": ""
+  },
+  "type": "",
+  "authed_users": [
+    ""
+  ],
+  "event_id": "",
+  "event_time": 123
+}

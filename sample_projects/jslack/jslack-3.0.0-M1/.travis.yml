@@ -1,0 +1,10 @@
+sudo: false
+language: java
+jdk:
+  - openjdk8
+  - openjdk11
+cache:
+  directories:
+  - $HOME/.m2
+install: echo 'skipped'
+script: ./mvnw test-compile && ./mvnw '-Dtest=test_locally.**.*Test' test -DfailIfNoTests=false && ./mvnw install -Dmaven.test.skip=true && ./mvnw duplicate-finder:check
